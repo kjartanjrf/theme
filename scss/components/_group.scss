@@ -16,6 +16,7 @@
     box-shadow: var(#{$css-var-prefix}group-box-shadow, 0 0 0 rgba(0, 0, 0, 0));
     vertical-align: middle;
     transition: box-shadow var(#{$css-var-prefix}transition);
+    align-self: flex-start;
 
     > *,
     input:not([type="checkbox"], [type="radio"]),
@@ -116,5 +117,11 @@
         border-bottom-right-radius: 5rem;
       }
     }
+  }
+
+  // No bottom margin when group is in header
+  header [role="search"],
+  header [role="group"] {
+    margin-bottom: 0;
   }
 }

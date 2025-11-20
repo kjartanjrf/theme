@@ -26,6 +26,7 @@
   #{$parent-selector} nav {
     justify-content: space-between;
     overflow: visible;
+    gap: var(#{$css-var-prefix}spacing);
 
     ol,
     ul {
@@ -55,6 +56,8 @@
         padding: var(#{$css-var-prefix}nav-link-spacing-vertical)
           var(#{$css-var-prefix}nav-link-spacing-horizontal);
         border-radius: var(#{$css-var-prefix}border-radius);
+        white-space: nowrap;
+        
 
         &:not(:hover) {
           text-decoration: none;

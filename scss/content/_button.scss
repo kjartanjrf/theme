@@ -47,6 +47,7 @@
     border-radius: var(#{$css-var-prefix}border-radius);
     outline: none;
     background-color: var(#{$css-var-prefix}background-color);
+    vertical-align: middle;
     box-shadow: var(#{$css-var-prefix}box-shadow);
     color: var(#{$css-var-prefix}color);
     font-weight: var(#{$css-var-prefix}font-weight);
@@ -204,11 +205,12 @@
   #{$parent-selector} [type="button"]:has(svg),
   #{$parent-selector} [type="reset"]:has(svg),
   #{$parent-selector} [role="button"]:has(svg) {
-    display: flex;
+    display: inline-flex;
     gap: var(#{$css-var-prefix}icon-spacing);
     align-items: center;
+    vertical-align: middle;
     justify-content: center;
-    padding: var(#{$css-var-prefix}form-element-spacing-horizontal);
+    padding: var(#{$css-var-prefix}form-element-spacing-vertical);
 
     svg {
       width: var(#{$css-var-prefix}icon-sm);

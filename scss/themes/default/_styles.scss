@@ -74,8 +74,8 @@
 
     // Spacings for form elements and button
     @if map.get($modules, "content/button") or map.get($modules, "forms/basic") {
-      #{$css-var-prefix}form-element-spacing-vertical: 0.75rem;
-      #{$css-var-prefix}form-element-spacing-horizontal: 1rem;
+      #{$css-var-prefix}form-element-spacing-vertical: 0.5rem;
+      #{$css-var-prefix}form-element-spacing-horizontal: 0.75rem;
     }
 
     // Font weight for form labels & fieldsets legend
@@ -140,9 +140,9 @@
     // Responsive root font size
     @if $enable-responsive-typography {
       // Fluid typography using clamp()
-      // Scales from 100% (16px) at 576px to 131.25% (21px) at 1536px
+      // Scales from 100% (16px) at 576px to 131.25% (21px) at 2000px
       // Formula: clamp(min, min + (max - min) * (100vw - minWidth) / (maxWidth - minWidth), max)
-      #{$css-var-prefix}font-size: clamp(100%, 0.875rem + 0.52vw, 131.25%);
+      #{$css-var-prefix}font-size: clamp(100%, calc(0.9211rem + 0.2193vw), 125%);
     }
   }
 
