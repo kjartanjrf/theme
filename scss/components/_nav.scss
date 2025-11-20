@@ -23,11 +23,6 @@
     display: flex;
   }
 
-  #{$parent-selector} nav.container-fluid {
-    padding-right: var(#{$css-var-prefix}spacing);
-    padding-left: var(#{$css-var-prefix}spacing);
-  }
-
 
   #{$parent-selector} nav {
     justify-content: space-between;
@@ -36,21 +31,13 @@
 
     ol,
     ul {
-      gap: calc(var(#{$css-var-prefix}nav-element-spacing-horizontal) * 2);
-      padding-right: var(#{$css-var-prefix}nav-link-spacing-horizontal);
-      padding-left: var(#{$css-var-prefix}nav-link-spacing-horizontal);
+      padding: 0;
       flex-shrink: 0;
       align-items: center;
       margin-bottom: 0;
       list-style: none;
 
-      &:first-of-type {
-        margin-left: calc(var(#{$css-var-prefix}nav-element-spacing-horizontal) * -1);
-      }
 
-      &:last-of-type {
-        margin-right: calc(var(#{$css-var-prefix}nav-element-spacing-horizontal) * -1);
-      }
     }
 
     li {
@@ -59,7 +46,6 @@
 
       :where(a, [role="link"]) {
         display: inline-block;
-        margin: calc(var(#{$css-var-prefix}nav-link-spacing-vertical) * -1) calc(var(#{$css-var-prefix}nav-link-spacing-horizontal) * -1);
         padding: calc(var(#{$css-var-prefix}nav-link-spacing-vertical) + var(#{$css-var-prefix}border-width)) var(#{$css-var-prefix}nav-link-spacing-horizontal);
         border-radius: var(#{$css-var-prefix}border-radius);
         white-space: nowrap;
