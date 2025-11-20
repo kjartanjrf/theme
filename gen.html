@@ -501,6 +501,32 @@
       return a + (b - a) * t;
     }
 
+    function lerpHue(fromHue, toHue, t) {
+      // Interpolate hues accounting for circular nature (0-360)
+      // Choose the shortest path around the color wheel
+      const from = normalizeHue(fromHue);
+      const to = normalizeHue(toHue);
+
+      // Calculate both possible distances
+      const diff = to - from;
+      const diffAbs = Math.abs(diff);
+
+      // If difference is more than 180°, go the other way around
+      if (diffAbs > 180) {
+        // Go the long way which is actually shorter on a circle
+        if (diff > 0) {
+          // Go counter-clockwise (subtract)
+          return normalizeHue(from - (360 - diffAbs) * t);
+        } else {
+          // Go clockwise (add)
+          return normalizeHue(from + (360 - diffAbs) * t);
+        }
+      } else {
+        // Direct path is shorter
+        return normalizeHue(from + diff * t);
+      }
+    }
+
     function oklchColor(l, c, h) {
       // OKLCH: l (0-1), c (0-0.4), h (0-360)
       return new Color(`oklch(${l} ${c} ${h})`).toString({ format: "hex" });
@@ -553,9 +579,9 @@
       // Target hue based on temperature choice
       let targetHue;
       if (temp === "warm") {
-        targetHue = lerp(brandHue, 40, 0.3);  // move toward orange
+        targetHue = lerpHue(brandHue, 40, 0.3);  // move toward orange
       } else if (temp === "cool") {
-        targetHue = lerp(brandHue, 220, 0.3); // move toward blue
+        targetHue = lerpHue(brandHue, 220, 0.3); // move toward blue
       } else {
         targetHue = brandHue;
       }
