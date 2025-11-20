@@ -43,31 +43,7 @@
   <header class="sticky">
     <nav class="container-fluid" aria-label="navbar">
       <ul>
-        <!--li class="burger-menu">
-          <button class="ghost icon burger-menu" aria-haspopup="menu" aria-expanded="false" title="Open main menu"
-            aria-label="Open main menu" onclick="toggleMenu()"></button>
-        </li>
-        <li class="brand">
-          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48" fill="none">
-            <title id="logoTitle">Company Logo</title>
-            <desc id="logoDesc">A graphic representation of the company logo</desc>
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M24 4.38272C24.9838 4.38272 25.7813 5.17595 25.7813 6.15446V13.2414C25.7813 14.2199 24.9838 15.0131 24 15.0131C23.0162 15.0131 22.2188 14.2199 22.2188 13.2414V6.15446C22.2188 5.17595 23.0162 4.38272 24 4.38272ZM10.147 10.0928C10.8427 9.40093 11.9705 9.40093 12.6661 10.0928L17.707 15.1068C18.4027 15.7987 18.4027 16.9205 17.707 17.6125C17.0114 18.3044 15.8836 18.3044 15.188 17.6125L10.147 12.5984C9.45141 11.9065 9.45141 10.7847 10.147 10.0928ZM37.853 10.0928C38.5486 10.7847 38.5486 11.9065 37.853 12.5984L32.812 17.6125C32.1164 18.3044 30.9886 18.3044 30.293 17.6125C29.5973 16.9205 29.5973 15.7987 30.293 15.1068L35.3339 10.0928C36.0295 9.40093 37.1574 9.40093 37.853 10.0928ZM4.40625 23.8718C4.40625 22.8933 5.20374 22.1001 6.1875 22.1001H13.3125C14.2963 22.1001 15.0938 22.8933 15.0938 23.8718C15.0938 24.8503 14.2963 25.6435 13.3125 25.6435H6.1875C5.20374 25.6435 4.40625 24.8503 4.40625 23.8718ZM32.9063 23.8718C32.9063 22.8933 33.7037 22.1001 34.6875 22.1001H41.8125C42.7963 22.1001 43.5938 22.8933 43.5938 23.8718C43.5938 24.8503 42.7963 25.6435 41.8125 25.6435H34.6875C33.7037 25.6435 32.9063 24.8503 32.9063 23.8718ZM17.707 30.1312C18.4027 30.8231 18.4027 31.9449 17.707 32.6368L12.6661 37.6508C11.9705 38.3427 10.8426 38.3427 10.147 37.6508C9.45141 36.9589 9.45141 35.8371 10.147 35.1452L15.188 30.1312C15.8836 29.4392 17.0114 29.4392 17.707 30.1312ZM30.293 30.1312C30.9886 29.4392 32.1164 29.4392 32.812 30.1312L37.853 35.1452C38.5486 35.8371 38.5486 36.9589 37.853 37.6508C37.1574 38.3427 36.0295 38.3427 35.3339 37.6508L30.293 32.6368C29.5973 31.9449 29.5973 30.8231 30.293 30.1312ZM24 32.7305C24.9838 32.7305 25.7813 33.5237 25.7813 34.5022V41.5891C25.7813 42.5677 24.9838 43.3609 24 43.3609C23.0162 43.3609 22.2188 42.5677 22.2188 41.5891V34.5022C22.2188 33.5237 23.0162 32.7305 24 32.7305Z"
-              fill="#222222" />
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M24 32.7305C24.9838 32.7305 25.7812 33.5237 25.7812 34.5022V41.5891C25.7812 42.5676 24.9838 43.3609 24 43.3609C23.0162 43.3609 22.2188 42.5676 22.2188 41.5891V34.5022C22.2188 33.5237 23.0162 32.7305 24 32.7305Z"
-              fill="#DC2626" />
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M4.40625 23.8718C4.40625 22.8933 5.20374 22.1001 6.1875 22.1001H13.3125C14.2963 22.1001 15.0938 22.8933 15.0938 23.8718C15.0938 24.8503 14.2963 25.6435 13.3125 25.6435H6.1875C5.20374 25.6435 4.40625 24.8503 4.40625 23.8718Z"
-              fill="#EAC608" />
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M24 4.38272C24.9838 4.38272 25.7812 5.17595 25.7812 6.15446V13.2414C25.7812 14.2199 24.9838 15.0131 24 15.0131C23.0162 15.0131 22.2188 14.2199 22.2188 13.2414V6.15446C22.2188 5.17595 23.0162 4.38272 24 4.38272Z"
-              fill="#2563EB" />
-            <path fill-rule="evenodd" clip-rule="evenodd"
-              d="M32.9062 23.8718C32.9062 22.8933 33.7037 22.1001 34.6875 22.1001H41.8125C42.7963 22.1001 43.5938 22.8933 43.5938 23.8718C43.5938 24.8503 42.7963 25.6435 41.8125 25.6435H34.6875C33.7037 25.6435 32.9062 24.8503 32.9062 23.8718Z"
-              fill="#22C55E" />
-          </svg>
-        </li-->
+
         <li><a href="#">All brands</a></li>
         <li><a href="#">New in women</a></li>
         <li><a href="#">Offers</a></li>
@@ -78,28 +54,18 @@
       <ul>
         <li class="hide-m">
           <details class="dropdown">
-            <summary aria-haspopup="true" role="button" class="ghost">Service</summary>
+            <summary role="button" class="ghost">
+              Account
+            </summary>
             <ul>
-              <li><a href="#">Opening hours</a></li>
-              <li><a href="#">Contact us</a></li>
-              <li><a href="#">Store locator</a></li>
+              <li><a href="#">Profile</a></li>
+              <li><a href="#">Settings</a></li>
+              <li><a href="#">Security</a></li>
+              <li><a href="#">Logout</a></li>
             </ul>
           </details>
         </li>
-        <li class="hide-m">
-          <a href="#" role="button" class="ghost login icon-left">
-            login
-          </a>
-        </li>
-        <li class="hide-d">
-          <a href="#" role="button" class="ghost icon login" aria-label="Open login" rel="nofollow"></a>
-        </li>
-        <li>
-          <a href="#" role="button" class="ghost icon favorites" aria-label="Open favorites" rel="nofollow"></a>
-        </li>
-        <li>
-          <a href="#" role="button" class="ghost icon cart" aria-label="Open basket" rel="nofollow"></a>
-        </li>
+
       </ul>
     </nav>
   </header>
@@ -112,6 +78,17 @@
       <h1>Navbar & menu</h1>
       <h2>Omnishop default navbar.</h2>
     </hgroup>
+    <details class="dropdown">
+      <summary>
+        Account
+      </summary>
+      <ul>
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Settings</a></li>
+        <li><a href="#">Security</a></li>
+        <li><a href="#">Logout</a></li>
+      </ul>
+    </details>
     <div class="grid">
       <div>
         <h2>What is Lorem Ipsum?</h2>

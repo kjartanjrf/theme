@@ -39,7 +39,7 @@
   --pico-nav-element-spacing-vertical: 1rem;
   --pico-nav-element-spacing-horizontal: 0.5rem;
   --pico-nav-link-spacing-vertical: 0.5rem;
-  --pico-nav-link-spacing-horizontal: 0.5rem;
+  --pico-nav-link-spacing-horizontal: 1rem;
   --pico-nav-breadcrumb-divider: ">";
   --pico-icon-checkbox: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(255, 255, 255)' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
   --pico-icon-minus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='rgb(255, 255, 255)' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'%3E%3C/line%3E%3C/svg%3E");
@@ -2464,6 +2464,11 @@ nav ul {
   display: flex;
 }
 
+nav.container-fluid {
+  padding-right: var(--pico-spacing);
+  padding-left: var(--pico-spacing);
+}
+
 nav {
   justify-content: space-between;
   overflow: visible;
@@ -2471,9 +2476,12 @@ nav {
 }
 nav ol,
 nav ul {
+  gap: calc(var(--pico-nav-element-spacing-horizontal) * 2);
+  padding-right: var(--pico-nav-link-spacing-horizontal);
+  padding-left: var(--pico-nav-link-spacing-horizontal);
+  flex-shrink: 0;
   align-items: center;
   margin-bottom: 0;
-  padding: 0;
   list-style: none;
 }
 nav ol:first-of-type,
@@ -2487,12 +2495,11 @@ nav ul:last-of-type {
 nav li {
   display: inline-block;
   margin: 0;
-  padding: var(--pico-nav-element-spacing-vertical) var(--pico-nav-element-spacing-horizontal);
 }
 nav li :where(a, [role=link]) {
   display: inline-block;
   margin: calc(var(--pico-nav-link-spacing-vertical) * -1) calc(var(--pico-nav-link-spacing-horizontal) * -1);
-  padding: var(--pico-nav-link-spacing-vertical) var(--pico-nav-link-spacing-horizontal);
+  padding: calc(var(--pico-nav-link-spacing-vertical) + var(--pico-border-width)) var(--pico-nav-link-spacing-horizontal);
   border-radius: var(--pico-border-radius);
   white-space: nowrap;
 }
