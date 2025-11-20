@@ -390,6 +390,10 @@
       Tint
       <input type="range" id="chroma-input" min="0" max="100" value="35" />
     </label>
+    <label style="cursor: pointer;">
+      <input type="checkbox" id="pure-input" />
+      Pure white/black background
+    </label>
     <span class="chip" id="mode-label"></span>
     <span class="chip" id="chroma-label"></span>
   </div>
@@ -470,6 +474,7 @@
     const modeInput = document.getElementById("mode-input");
     const tempInput = document.getElementById("temp-input");
     const chromaInput = document.getElementById("chroma-input");
+    const pureInput = document.getElementById("pure-input");
     const modeLabel = document.getElementById("mode-label");
     const chromaLabel = document.getElementById("chroma-label");
 
@@ -572,7 +577,7 @@
       return new Color(`oklch(${l} ${c} ${h})`).toString({ format: "hex" });
     }
 
-    function generateNeutrals(brandHex, mode, temp, chromaLevel) {
+    function generateNeutrals(brandHex, mode, temp, chromaLevel, pureBackground) {
       const brandColor = new Color(brandHex).to("oklch");
       const brandHue = normalizeHue(brandColor.coords[2] || 220);
 
@@ -592,7 +597,7 @@
       if (mode === "light") {
         // Light mode: high L = near white, low L = near black
         const scales = [
-          { l: 0.99, c: baseChroma * 0.5 },  // 100
+          { l: pureBackground ? 1.0 : 0.99, c: pureBackground ? 0 : baseChroma * 0.3 },  // 100
           { l: 0.96, c: baseChroma * 0.6 },  // 200
           { l: 0.92, c: baseChroma * 0.7 },  // 300
           { l: 0.87, c: baseChroma * 0.8 },  // 400
@@ -613,7 +618,7 @@
       } else {
         // Dark mode: low L = near black, high L = near white
         const scales = [
-          { l: 0.10, c: baseChroma * 1.4 },  // 100
+          { l: pureBackground ? 0.0 : 0.10, c: pureBackground ? 0 : baseChroma * 1.4 },  // 100
           { l: 0.17, c: baseChroma * 1.3 },  // 200
           { l: 0.24, c: baseChroma * 1.2 },  // 300
           { l: 0.32, c: baseChroma * 1.1 },  // 400
@@ -634,8 +639,8 @@
       }
     }
 
-    function generateTheme(brandHex, mode, temp, chromaLevel) {
-      const neutrals = generateNeutrals(brandHex, mode, temp, chromaLevel);
+    function generateTheme(brandHex, mode, temp, chromaLevel, pureBackground) {
+      const neutrals = generateNeutrals(brandHex, mode, temp, chromaLevel, pureBackground);
 
       // structural tokens
       const bg = neutrals[100];
@@ -845,7 +850,8 @@
       const mode = modeInput.value;
       const temp = tempInput.value;
       const chromaLevel = parseInt(chromaInput.value, 10) / 100;
-      generateTheme(brand, mode, temp, chromaLevel);
+      const pureBackground = pureInput.checked;
+      generateTheme(brand, mode, temp, chromaLevel, pureBackground);
     }
 
     // Sync color picker and hex input
@@ -866,6 +872,7 @@
     modeInput.addEventListener("change", update);
     tempInput.addEventListener("change", update);
     chromaInput.addEventListener("input", update);
+    pureInput.addEventListener("change", update);
 
     update();
   </script>
