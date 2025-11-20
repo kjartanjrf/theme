@@ -25,9 +25,11 @@
     line-height: 0;
     vertical-align: baseline;
   }
+
   #{$parent-selector} sub {
     bottom: -0.25em;
   }
+
   #{$parent-selector} sup {
     top: -0.5em;
   }
@@ -69,25 +71,29 @@
   #{$parent-selector} h1 {
     #{$css-var-prefix}color: var(#{$css-var-prefix}h1-color);
   }
+
   #{$parent-selector} h2 {
     #{$css-var-prefix}color: var(#{$css-var-prefix}h2-color);
   }
+
   #{$parent-selector} h3 {
     #{$css-var-prefix}color: var(#{$css-var-prefix}h3-color);
   }
+
   #{$parent-selector} h4 {
     #{$css-var-prefix}color: var(#{$css-var-prefix}h4-color);
   }
+
   #{$parent-selector} h5 {
     #{$css-var-prefix}color: var(#{$css-var-prefix}h5-color);
   }
+
   #{$parent-selector} h6 {
     #{$css-var-prefix}color: var(#{$css-var-prefix}h6-color);
   }
 
   // Margin-top for headings after a block
-  #{$parent-selector}
-    :where(article, address, blockquote, dl, figure, form, ol, p, pre, table, ul) {
+  #{$parent-selector} :where(article, address, blockquote, dl, figure, form, ol, p, pre, table, ul) {
     ~ :is(h1, h2, h3, h4, h5, h6) {
       margin-top: var(#{$css-var-prefix}typography-spacing-top);
     }
@@ -102,12 +108,12 @@
   #{$parent-selector} hgroup {
     margin-bottom: var(#{$css-var-prefix}typography-spacing-vertical);
 
-    > * {
+    >* {
       margin-top: 0;
       margin-bottom: 0;
     }
 
-    > *:not(:first-child):last-child {
+    >*:not(:first-child):last-child {
       #{$css-var-prefix}color: var(#{$css-var-prefix}muted-color);
       #{$css-var-prefix}font-weight: unset;
       font-size: 1rem;

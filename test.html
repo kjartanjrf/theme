@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Generated Color Scheme Test</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 2rem;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+    }
+
+    .controls {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .controls label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .section-title {
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: 120px auto;
+      gap: 6px 16px;
+      max-width: 640px;
+    }
+
+    .swatch-row {
+      display: contents;
+    }
+
+    .swatch {
+      height: 40px;
+      border-radius: 4px;
+    }
+
+    .text-demo {
+      padding: 16px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      border: 1px solid var(--neutral300);
+    }
+
+    .text-strong {
+      color: var(--text-strong);
+    }
+
+    .text-default {
+      color: var(--text);
+    }
+
+    .text-subtle {
+      color: var(--text-subtle);
+    }
+
+    .text-on-primary {
+      color: var(--text-on-primary);
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-top: 0.75rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.55rem 1.2rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-text);
+      box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
+      transition: background 120ms ease, transform 80ms ease, box-shadow 80ms ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--btn-primary-hover-bg);
+      box-shadow: 0 2px 4px rgb(0 0 0 / 0.16);
+    }
+
+    .btn-primary:active {
+      background: var(--btn-primary-active-bg);
+      transform: translateY(1px);
+      box-shadow: 0 1px 2px rgb(0 0 0 / 0.18);
+    }
+
+    .btn-chip {
+      border-radius: 999px;
+      padding: 0.35rem 0.8rem;
+      font-size: 0.8rem;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Generated Color Scheme</h1>
+
+  <div class="controls">
+    <label>
+      Primary color
+      <input type="color" id="primary-input" value="#ee3333" />
+    </label>
+    <label>
+      Surface color
+      <input type="color" id="surface-input" value="#ffffff" />
+    </label>
+  </div>
+
+  <div class="section-title">Primary & variants</div>
+  <div class="swatch-grid" id="swatches-primary"></div>
+
+  <div class="section-title">Neutrals</div>
+  <div class="swatch-grid" id="swatches-neutral"></div>
+
+  <div class="section-title">Semantic</div>
+  <div class="swatch-grid" id="swatches-semantic"></div>
+
+  <div class="section-title">Text Usage Examples</div>
+
+  <div class="text-demo" id="text-surface">
+    <div class="text-strong">Strong text: Primary body text</div>
+    <div class="text-default">Default text: Regular UI content</div>
+    <div class="text-subtle">Subtle text: Metadata, timestamps, labels</div>
+  </div>
+
+  <div class="text-demo" id="text-primary">
+    <div class="text-on-primary">Text on primary background: Button label</div>
+  </div>
+
+  <div class="text-demo" id="text-success-soft">
+    <div class="text-strong">Success soft background with body text</div>
+    <div class="text-subtle">Secondary text on semantic background</div>
+  </div>
+
+  <div class="text-demo" id="text-warning-soft">
+    <div class="text-strong">Warning soft background with body text</div>
+    <div class="text-subtle">Secondary text on semantic background</div>
+  </div>
+
+  <div class="text-demo" id="text-error-soft">
+    <div class="text-strong">Error soft background with body text</div>
+    <div class="text-subtle">Secondary text on semantic background</div>
+  </div>
+
+  <div class="section-title">Primary Button Example</div>
+  <div class="text-demo">
+    <div class="text-default">Primary button uses the scheme-defined states (default, hover, active):</div>
+    <div class="btn-row">
+      <button class="btn-primary">Primary action</button>
+      <span class="btn-chip">Default / Hover / Active are all covered by the color scheme</span>
+    </div>
+  </div>
+
+  <script type="module">
+    import Color from "https://colorjs.io/dist/color.js";
+
+    const primaryInput = document.getElementById("primary-input");
+    const surfaceInput = document.getElementById("surface-input");
+
+    function mix(a, b, t) {
+      return new Color(a).mix(b, t, { space: "oklch" }).toString({ format: "hex" });
+    }
+
+    function hslColor(h, s, l) {
+      return new Color(`hsl(${h} ${s}% ${l}%)`).toString({ format: "hex" });
+    }
+
+    function renderSection(containerId, data) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+      Object.entries(data).forEach(([name, value]) => {
+        const row = document.createElement("div");
+        row.className = "swatch-row";
+
+        const swatch = document.createElement("div");
+        swatch.className = "swatch";
+        swatch.style.background = value;
+
+        const label = document.createElement("div");
+        label.textContent = `${name}: ${value}`;
+
+        row.appendChild(swatch);
+        row.appendChild(label);
+        container.appendChild(row);
+      });
+    }
+
+    function generateTheme(primaryHex, surfaceHex) {
+      const primary = new Color(primaryHex);
+      const surface = new Color(surfaceHex);
+
+      // --- THEME MODE (LIGHT/DARK) ---
+      const surfaceHsl = surface.to("hsl");
+      const surfaceL = surfaceHsl.coords[2];
+      const isDarkTheme = surfaceL < 50;
+
+      // --- PRIMARY HUE + TEMPERATURE ---
+      const primaryHsl = primary.to("hsl");
+      const rawHue = primaryHsl.coords[0];
+
+      const primaryHue = Number.isFinite(rawHue)
+        ? ((rawHue % 360) + 360) % 360
+        : 0;
+
+      let neutralHue;
+      if (primaryHue >= 0 && primaryHue < 60) {
+        neutralHue = 30;      // warm grey
+      } else if (primaryHue >= 60 && primaryHue < 180) {
+        neutralHue = 0;       // neutral grey
+      } else if (primaryHue >= 180 && primaryHue < 300) {
+        neutralHue = 220;     // cool grey
+      } else {
+        neutralHue = 20;      // warm-ish grey
+      }
+
+      // --- NEUTRALS: BASE RAMP + SURFACE-ANCHORING ---
+
+      let neutrals;
+
+      if (!isDarkTheme) {
+        // Base ramp anchored on white
+        const base = {
+          neutral100: "#ffffff",
+          neutral200: hslColor(neutralHue, 4, 96),
+          neutral300: hslColor(neutralHue, 5, 92),
+          neutral400: hslColor(neutralHue, 6, 86),
+          neutral500: hslColor(neutralHue, 7, 72),
+          neutral600: hslColor(neutralHue, 8, 58),
+          neutral700: hslColor(neutralHue, 9, 46),
+          neutral800: hslColor(neutralHue, 10, 34),
+          neutral900: hslColor(neutralHue, 9, 22),
+        };
+
+        // weight of BASE (not surface) per stop: shallow = close to surface, deep = close to base
+        const weightBase = {
+          neutral100: 0.0,
+          neutral200: 0.15,
+          neutral300: 0.25,
+          neutral400: 0.35,
+          neutral500: 0.5,
+          neutral600: 0.65,
+          neutral700: 0.75,
+          neutral800: 0.85,
+          neutral900: 1.0,
+        };
+
+        neutrals = {};
+        for (const key of Object.keys(base)) {
+          if (key === "neutral100") {
+            neutrals[key] = surfaceHex;
+          } else {
+            // mix(surface, base, weight), weight = how much of BASE
+            neutrals[key] = mix(surfaceHex, base[key], weightBase[key]);
+          }
+        }
+      } else {
+        // Dark theme: base ramp anchored on black
+        const base = {
+          neutral100: "#000000",
+          neutral200: hslColor(neutralHue, 6, 14),
+          neutral300: hslColor(neutralHue, 6, 18),
+          neutral400: hslColor(neutralHue, 7, 24),
+          neutral500: hslColor(neutralHue, 7, 30),
+          neutral600: hslColor(neutralHue, 8, 44),
+          neutral700: hslColor(neutralHue, 8, 60),
+          neutral800: hslColor(neutralHue, 9, 78),
+          neutral900: hslColor(neutralHue, 10, 92),
+        };
+
+        const weightBase = {
+          neutral100: 0.0,
+          neutral200: 0.15,
+          neutral300: 0.25,
+          neutral400: 0.35,
+          neutral500: 0.5,
+          neutral600: 0.65,
+          neutral700: 0.75,
+          neutral800: 0.85,
+          neutral900: 1.0,
+        };
+
+        neutrals = {};
+        for (const key of Object.keys(base)) {
+          if (key === "neutral100") {
+            neutrals[key] = surfaceHex;
+          } else {
+            neutrals[key] = mix(surfaceHex, base[key], weightBase[key]);
+          }
+        }
+      }
+
+      // --- TEXT ROLES ---
+      const textRoles = {
+        textStrong: neutrals.neutral900,
+        textDefault: neutrals.neutral900,
+        textSubtle: isDarkTheme ? neutrals.neutral800 : neutrals.neutral700,
+        textOnPrimary: (() => {
+          const pL = primaryHsl.coords[2];
+          return pL > 60 ? "#000000" : "#ffffff";
+        })(),
+      };
+
+      // --- PRIMARY VARIANTS ---
+      const primaryVariants = {
+        primary: primaryHex,
+
+        // soft = subtle tint towards the background, but still clearly related to primary
+        primarySoft: !isDarkTheme
+          ? mix(surfaceHex, primaryHex, 0.12)  // light theme: near surface, 12% primary
+          : mix(primaryHex, surfaceHex, 0.12), // dark theme: near primary, 12% surface
+
+        // muted = in–between shade, used for chips / subtle fills
+        primaryMuted: !isDarkTheme
+          ? mix(surfaceHex, primaryHex, 0.45)
+          : mix(primaryHex, surfaceHex, 0.45),
+
+        // strong = darker / more intense version of primary
+        primaryStrong: mix(primaryHex, "#000000", isDarkTheme ? 0.15 : 0.25),
+      };
+      // --- PRIMARY INTERACTION STATES (INSIDE SCHEME) ---
+      const primaryStates = {
+        primaryDefault: primaryHex,
+        primaryHover: mix(primaryHex, "#000000", isDarkTheme ? 0.08 : 0.10),
+        primaryActive: mix(primaryHex, "#000000", isDarkTheme ? 0.16 : 0.18),
+      };
+
+      // --- SEMANTIC COLORS ---
+
+      // Canonical bases
+      const successBase = new Color("hsl(142 60% 45%)"); // green
+      const warningBase = new Color("hsl(38 100% 52%)"); // amber
+      const errorBase = new Color("hsl(0 80% 52%)");   // red
+
+      // Lightly nudge toward primary so scheme feels cohesive, but keep identity
+      const success = mix(successBase, primaryHex, 0.06);
+      const warning = mix(warningBase, primaryHex, 0.05);
+      const error = mix(errorBase, primaryHex, 0.05);
+
+      // Softer background versions with clearly visible color
+      function makeSoft(color) {
+        const hsl = new Color(color).to("hsl");
+        let [h, s] = hsl.coords;
+
+        if (!isDarkTheme) {
+          // Light theme: high lightness, decent saturation
+          const softS = Math.min(65, Math.max(30, s * 0.7)); // 30–65%
+          const softL = 95;                                  // very light bg
+          return new Color(`hsl(${h} ${softS}% ${softL}%)`).toString({ format: "hex" });
+        } else {
+          // Dark theme: low lightness, stronger saturation
+          const softS = Math.min(75, Math.max(40, s * 0.9)); // 40–75%
+          const softL = 24;                                  // dark but readable
+          return new Color(`hsl(${h} ${softS}% ${softL}%)`).toString({ format: "hex" });
+        }
+      }
+
+      const semantics = {
+        success,
+        successSoft: makeSoft(success),
+        warning,
+        warningSoft: makeSoft(warning),
+        error,
+        errorSoft: makeSoft(error),
+      };
+      // --- RENDER SWATCHES ---
+      renderSection("swatches-primary", primaryVariants);
+      renderSection("swatches-neutral", neutrals);
+      renderSection("swatches-semantic", semantics);
+
+      // --- TEXT DEMO BACKGROUNDS ---
+      document.getElementById("text-surface").style.background = neutrals.neutral100;
+      document.getElementById("text-primary").style.background = primaryHex;
+      document.getElementById("text-success-soft").style.background = semantics.successSoft;
+      document.getElementById("text-warning-soft").style.background = semantics.warningSoft;
+      document.getElementById("text-error-soft").style.background = semantics.errorSoft;
+
+      // --- CSS CUSTOM PROPERTIES ---
+      document.documentElement.style.setProperty("--text-strong", textRoles.textStrong);
+      document.documentElement.style.setProperty("--text", textRoles.textDefault);
+      document.documentElement.style.setProperty("--text-subtle", textRoles.textSubtle);
+      document.documentElement.style.setProperty("--text-on-primary", textRoles.textOnPrimary);
+      document.documentElement.style.setProperty("--neutral300", neutrals.neutral300);
+
+      document.documentElement.style.setProperty("--btn-primary-bg", primaryStates.primaryDefault);
+      document.documentElement.style.setProperty("--btn-primary-hover-bg", primaryStates.primaryHover);
+      document.documentElement.style.setProperty("--btn-primary-active-bg", primaryStates.primaryActive);
+      document.documentElement.style.setProperty("--btn-primary-text", textRoles.textOnPrimary);
+
+      // --- PAGE BACKGROUND / TEXT ---
+      document.body.style.background = neutrals.neutral100;
+      document.body.style.color = textRoles.textDefault;
+    }
+    // Initial render
+    generateTheme(primaryInput.value, surfaceInput.value);
+
+    primaryInput.addEventListener("input", () => {
+      generateTheme(primaryInput.value, surfaceInput.value);
+    });
+
+    surfaceInput.addEventListener("input", () => {
+      generateTheme(primaryInput.value, surfaceInput.value);
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Ecommerce UI Color Generator</title>
+  <style>
+    :root {
+      /* fallback initial values (overwritten by JS) */
+      --bg: #ffffff;
+      --surface: #f7f7f7;
+      --surface-alt: #efefef;
+      --surface-1: #ffffff;
+      --surface-2: #f5f5f5;
+      --surface-3: #e8e8e8;
+
+      --border: #e5e5e5;
+      --border-strong: #a3a3a3;
+
+      --text: #171717;
+      --text-strong: #171717;
+      --text-subtle: #525252;
+
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-active: #1e40af;
+      --primary-soft-bg: #eff6ff;
+      --primary-soft-text: #1e3a8a;
+
+      --success: #22c55e;
+      --success-hover: #16a34a;
+      --success-active: #15803d;
+      --success-soft-bg: #dcfce7;
+      --success-soft-text: #166534;
+
+      --warning: #f59e0b;
+      --warning-hover: #d97706;
+      --warning-active: #b45309;
+      --warning-soft-bg: #fef3c7;
+      --warning-soft-text: #92400e;
+
+      --error: #ef4444;
+      --error-hover: #dc2626;
+      --error-active: #b91c1c;
+      --error-soft-bg: #fee2e2;
+      --error-soft-text: #991b1b;
+
+      --secondary: #e5e5e5;
+      --secondary-hover: #d4d4d4;
+      --secondary-active: #a3a3a3;
+      --secondary-text: #171717;
+
+      --focus-ring: #2563eb;
+      --disabled-bg: #f5f5f5;
+      --disabled-text: #a3a3a3;
+      --disabled-border: #e5e5e5;
+      --overlay: rgba(0, 0, 0, 0.45);
+
+      --input-bg: #ffffff;
+      --input-border: #e5e5e5;
+      --input-border-focus: #2563eb;
+      --input-text: #171717;
+      --input-placeholder: #525252;
+    }
+
+    /* alias tokens */
+    :root {
+      --btn-primary-bg: var(--primary);
+      --btn-primary-bg-hover: var(--primary-hover);
+      --btn-primary-bg-active: var(--primary-active);
+      --btn-primary-text: var(--btn-primary-text);
+
+      --btn-secondary-bg: var(--secondary);
+      --btn-secondary-bg-hover: var(--secondary-hover);
+      --btn-secondary-bg-active: var(--secondary-active);
+      --btn-secondary-text: var(--btn-secondary-text);
+
+      --btn-ghost-text: var(--btn-ghost-text);
+      --btn-ghost-bg-hover: var(--primary-soft-bg);
+
+      --badge-new-bg: var(--primary-soft-bg);
+      --badge-new-text: var(--primary);
+
+      --badge-sale-bg: var(--error-soft-bg);
+      --badge-sale-text: var(--error);
+
+      --badge-stock-bg: var(--success-soft-bg);
+      --badge-stock-text: var(--success);
+
+      --badge-warning-bg: var(--warning-soft-bg);
+      --badge-warning-text: var(--warning);
+
+      --nav-bg: var(--surface);
+      --nav-text: var(--text);
+      --nav-text-hover: var(--text-strong);
+      --nav-border: var(--border);
+
+      --footer-bg: var(--surface-2);
+      --footer-text: var(--text);
+      --footer-text-subtle: var(--text-subtle);
+
+      --card-bg: var(--surface-1);
+      --card-border: var(--border);
+
+      --modal-bg: var(--surface-1);
+      --modal-overlay: var(--overlay);
+    }
+
+    /* layout */
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, sans-serif;
+      margin: 32px;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    h1,
+    h2 {
+      margin-bottom: 16px;
+      color: var(--text-strong);
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .controls label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .controls select,
+    .controls input[type="color"],
+    .controls input[type="range"] {
+      padding: 4px 8px;
+      font-size: 14px;
+    }
+
+    .chip {
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface-alt);
+    }
+
+    .section {
+      margin-top: 24px;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* swatches */
+
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: 140px auto;
+      gap: 6px 16px;
+      max-width: 520px;
+      margin-bottom: 12px;
+    }
+
+    .swatch-row {
+      display: contents;
+    }
+
+    .swatch {
+      height: 30px;
+      border-radius: 4px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    /* components */
+
+    .nav {
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--nav-border);
+      padding: 12px;
+      margin-bottom: 20px;
+    }
+
+    .nav a {
+      color: var(--nav-text);
+      margin-right: 16px;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .nav a:hover {
+      color: var(--nav-text-hover);
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      transition: background 120ms ease, color 120ms ease, border-color 120ms ease, transform 80ms ease;
+    }
+
+    .btn+.btn {
+      margin-left: 8px;
+    }
+
+    .btn-primary {
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-text);
+    }
+
+    .btn-primary:hover {
+      background: var(--btn-primary-bg-hover);
+    }
+
+    .btn-primary:active {
+      background: var(--btn-primary-bg-active);
+      transform: translateY(1px);
+    }
+
+    .btn-secondary {
+      background: var(--btn-secondary-bg);
+      color: var(--btn-secondary-text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--btn-secondary-bg-hover);
+    }
+
+    .btn-secondary:active {
+      background: var(--btn-secondary-bg-active);
+      transform: translateY(1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--btn-ghost-text);
+    }
+
+    .btn-ghost:hover {
+      background: var(--btn-ghost-bg-hover);
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .badge+.badge {
+      margin-left: 6px;
+    }
+
+    .badge-new {
+      background: var(--badge-new-bg);
+      color: var(--badge-new-text);
+    }
+
+    .badge-sale {
+      background: var(--badge-sale-bg);
+      color: var(--badge-sale-text);
+    }
+
+    .badge-stock {
+      background: var(--badge-stock-bg);
+      color: var(--badge-stock-text);
+    }
+
+    .badge-warning {
+      background: var(--badge-warning-bg);
+      color: var(--badge-warning-text);
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      margin: 0 0 4px;
+      color: var(--text-strong);
+      font-size: 16px;
+    }
+
+    .card p {
+      margin: 0 0 8px;
+      color: var(--text-subtle);
+      font-size: 14px;
+    }
+
+    .input {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid var(--input-border);
+      background: var(--input-bg);
+      color: var(--input-text);
+      width: 260px;
+      font-size: 14px;
+    }
+
+    .input::placeholder {
+      color: var(--input-placeholder);
+    }
+
+    .input:focus {
+      border-color: var(--input-border-focus);
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 1px;
+    }
+
+    .modal {
+      background: var(--modal-bg);
+      border-radius: 8px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      width: 260px;
+      font-size: 14px;
+    }
+
+    .block {
+      margin-bottom: 16px;
+    }
+
+    .small {
+      font-size: 12px;
+      color: var(--text-subtle);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Ecommerce UI Color Generator</h1>
+
+  <div class="controls">
+    <label>
+      Brand color
+      <div style="display: flex; gap: 0.5rem; align-items: center;">
+        <input type="color" id="brand-input" value="#4978df" style="width: 60px; height: 40px;" />
+        <input type="text" id="brand-hex" value="#4978df" placeholder="#000000" pattern="^#[0-9A-Fa-f]{6}$" style="flex: 1; font-family: monospace;" />
+      </div>
+    </label>
+    <label>
+      Mode
+      <select id="mode-input">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </label>
+    <label>
+      Temperature
+      <select id="temp-input">
+        <option value="auto">Auto</option>
+        <option value="warm">Warm</option>
+        <option value="cool">Cool</option>
+      </select>
+    </label>
+    <label>
+      Tint
+      <input type="range" id="chroma-input" min="0" max="100" value="35" />
+    </label>
+    <span class="chip" id="mode-label"></span>
+    <span class="chip" id="chroma-label"></span>
+  </div>
+
+  <div class="section">Neutrals / Primary / Semantics (debug)</div>
+  <div class="layout">
+    <div>
+      <div class="block">
+        <div class="small">Neutrals (from brand hue, temp, tint)</div>
+        <div class="swatch-grid" id="swatches-neutral"></div>
+      </div>
+      <div class="block">
+        <div class="small">Primary tokens</div>
+        <div class="swatch-grid" id="swatches-primary"></div>
+      </div>
+      <div class="block">
+        <div class="small">Semantic tokens</div>
+        <div class="swatch-grid" id="swatches-semantic"></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section">Component samples</div>
+
+      <div class="block">
+        <nav class="nav">
+          <a href="#">Home</a>
+          <a href="#">Shop</a>
+          <a href="#">Cart</a>
+        </nav>
+      </div>
+
+      <div class="block">
+        <div class="small">Buttons</div>
+        <button class="btn btn-primary">Add to cart</button>
+        <button class="btn btn-secondary">Secondary</button>
+        <button class="btn btn-ghost">Ghost</button>
+      </div>
+
+      <div class="block">
+        <div class="small">Badges</div>
+        <span class="badge badge-new">New</span>
+        <span class="badge badge-sale">Sale -30%</span>
+        <span class="badge badge-stock">In stock</span>
+        <span class="badge badge-warning">Low stock</span>
+      </div>
+
+      <div class="block">
+        <div class="small">Card</div>
+        <div class="card">
+          <h3>Product title</h3>
+          <p>Short description to confirm text colors and surfaces.</p>
+          <button class="btn btn-primary">Add to cart</button>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="small">Input</div>
+        <input class="input" placeholder="Email address" />
+      </div>
+
+      <div class="block">
+        <div class="small">Modal</div>
+        <div class="modal">
+          <strong>Payment details</strong>
+          <p class="small">Modal surface, borders, text roles.</p>
+          <button class="btn btn-primary">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import Color from "https://colorjs.io/dist/color.js";
+
+    const brandInput = document.getElementById("brand-input");
+    const brandHexInput = document.getElementById("brand-hex");
+    const modeInput = document.getElementById("mode-input");
+    const tempInput = document.getElementById("temp-input");
+    const chromaInput = document.getElementById("chroma-input");
+    const modeLabel = document.getElementById("mode-label");
+    const chromaLabel = document.getElementById("chroma-label");
+
+    function renderSwatches(id, obj) {
+      const container = document.getElementById(id);
+      container.innerHTML = "";
+      Object.entries(obj).forEach(([name, value]) => {
+        const row = document.createElement("div");
+        row.className = "swatch-row";
+        const swatch = document.createElement("div");
+        swatch.className = "swatch";
+        swatch.style.background = value;
+        const label = document.createElement("div");
+        label.textContent = `${name}: ${value}`;
+        row.appendChild(swatch);
+        row.appendChild(label);
+        container.appendChild(row);
+      });
+    }
+
+    function normalizeHue(h) {
+      if (!Number.isFinite(h)) return 220;
+      let v = h % 360;
+      if (v < 0) v += 360;
+      return v;
+    }
+
+    function lerp(a, b, t) {
+      return a + (b - a) * t;
+    }
+
+    function oklchColor(l, c, h) {
+      // OKLCH: l (0-1), c (0-0.4), h (0-360)
+      return new Color(`oklch(${l} ${c} ${h})`).toString({ format: "hex" });
+    }
+
+    function mix(a, b, t) {
+      return new Color(a).mix(b, t, { space: "oklch" }).toString({ format: "hex" });
+    }
+
+    function darken(hex, amount) {
+      return new Color(hex).mix("#000000", amount, { space: "oklch" }).toString({ format: "hex" });
+    }
+
+    function ensureContrast(fgHex, bgHex, minRatio = 4.5) {
+      const fg = new Color(fgHex);
+      const bg = new Color(bgHex);
+      let ratio = Math.abs(fg.contrast(bg, "WCAG21"));
+
+      if (ratio >= minRatio) {
+        return fgHex;
+      }
+
+      // Adjust lightness in OKLCH to meet contrast
+      const fgOklch = fg.to("oklch");
+      let l = fgOklch.coords[0];
+      const c = fgOklch.coords[1];
+      const h = fgOklch.coords[2];
+
+      // Determine direction: lighten or darken
+      const bgL = bg.to("oklch").coords[0];
+      const step = l > bgL ? 0.01 : -0.01;
+
+      let iterations = 0;
+      while (ratio < minRatio && iterations < 100) {
+        l += step;
+        if (l < 0 || l > 1) break;
+
+        const adjusted = new Color(`oklch(${l} ${c} ${h})`);
+        ratio = Math.abs(adjusted.contrast(bg, "WCAG21"));
+        iterations++;
+      }
+
+      return new Color(`oklch(${l} ${c} ${h})`).toString({ format: "hex" });
+    }
+
+    function generateNeutrals(brandHex, mode, temp, chromaLevel) {
+      const brandColor = new Color(brandHex).to("oklch");
+      const brandHue = normalizeHue(brandColor.coords[2] || 220);
+
+      // Target hue based on temperature choice
+      let targetHue;
+      if (temp === "warm") {
+        targetHue = lerp(brandHue, 40, 0.3);  // move toward orange
+      } else if (temp === "cool") {
+        targetHue = lerp(brandHue, 220, 0.3); // move toward blue
+      } else {
+        targetHue = brandHue;
+      }
+
+      // Material Design 3 approach: very low chroma for neutrals
+      const baseChroma = chromaLevel * 0.04; // Max 4% chroma
+
+      if (mode === "light") {
+        // Light mode: high L = near white, low L = near black
+        const scales = [
+          { l: 0.99, c: baseChroma * 0.5 },  // 100
+          { l: 0.96, c: baseChroma * 0.6 },  // 200
+          { l: 0.92, c: baseChroma * 0.7 },  // 300
+          { l: 0.87, c: baseChroma * 0.8 },  // 400
+          { l: 0.70, c: baseChroma * 1.0 },  // 500
+          { l: 0.55, c: baseChroma * 1.1 },  // 600
+          { l: 0.40, c: baseChroma * 1.2 },  // 700
+          { l: 0.25, c: baseChroma * 1.3 },  // 800
+          { l: 0.10, c: baseChroma * 1.4 },  // 900
+        ];
+
+        const neutrals = {};
+        const steps = [100, 200, 300, 400, 500, 600, 700, 800, 900];
+        steps.forEach((step, idx) => {
+          const { l, c } = scales[idx];
+          neutrals[step] = oklchColor(l, c, targetHue);
+        });
+        return neutrals;
+      } else {
+        // Dark mode: low L = near black, high L = near white
+        const scales = [
+          { l: 0.10, c: baseChroma * 1.4 },  // 100
+          { l: 0.17, c: baseChroma * 1.3 },  // 200
+          { l: 0.24, c: baseChroma * 1.2 },  // 300
+          { l: 0.32, c: baseChroma * 1.1 },  // 400
+          { l: 0.50, c: baseChroma * 1.0 },  // 500
+          { l: 0.65, c: baseChroma * 0.9 },  // 600
+          { l: 0.75, c: baseChroma * 0.8 },  // 700
+          { l: 0.85, c: baseChroma * 0.7 },  // 800
+          { l: 0.95, c: baseChroma * 0.6 },  // 900
+        ];
+
+        const neutrals = {};
+        const steps = [100, 200, 300, 400, 500, 600, 700, 800, 900];
+        steps.forEach((step, idx) => {
+          const { l, c } = scales[idx];
+          neutrals[step] = oklchColor(l, c, targetHue);
+        });
+        return neutrals;
+      }
+    }
+
+    function generateTheme(brandHex, mode, temp, chromaLevel) {
+      const neutrals = generateNeutrals(brandHex, mode, temp, chromaLevel);
+
+      // structural tokens
+      const bg = neutrals[100];
+      const surface = neutrals[200];
+      const surfaceAlt = neutrals[300];
+
+      const surface1 = neutrals[100];
+      const surface2 = neutrals[200];
+      const surface3 = neutrals[300];
+
+      const border = neutrals[300];
+      const borderStrong = neutrals[500];
+
+      // Text colors with contrast checking (WCAG AA = 4.5:1 for normal text)
+      const textStrong = ensureContrast(neutrals[900], bg, 7.0); // AAA for headings
+      const text = ensureContrast(neutrals[900], bg, 4.5);       // AA for body
+      const textSubtle = ensureContrast(
+        mode === "light" ? neutrals[700] : neutrals[600],
+        bg,
+        4.5
+      );
+
+      // primary scale
+      const primary = brandHex;
+      const primaryHover = darken(primary, 0.10);
+      const primaryActive = darken(primary, 0.18);
+
+      const primarySoftBg =
+        mode === "light"
+          ? mix(neutrals[100], primary, 0.16)
+          : mix(neutrals[300], primary, 0.35);
+
+      const primarySoftText = ensureContrast(
+        mode === "light" ? darken(primary, 0.20) : primary,
+        primarySoftBg,
+        4.5
+      );
+
+      // Button text with contrast checking
+      const primaryButtonText = ensureContrast("#ffffff", primary, 4.5);
+      const secondaryButtonText = text;
+      const ghostButtonText = ensureContrast(primary, bg, 4.5);
+
+      // semantics (canonical hues, lightly nudged by primary)
+      const successBase = new Color("hsl(142 60% 45%)");
+      const warningBase = new Color("hsl(38 100% 52%)");
+      const errorBase = new Color("hsl(0 80% 52%)");
+
+      const success = new Color(successBase).mix(primary, 0.05, { space: "oklch" });
+      const warning = new Color(warningBase).mix(primary, 0.05, { space: "oklch" });
+      const error = new Color(errorBase).mix(primary, 0.05, { space: "oklch" });
+
+      function makeSoftSemantic(color) {
+        const hsl = color.to("hsl");
+        const [h, s] = hsl.coords;
+        if (mode === "light") {
+          const softS = Math.min(70, Math.max(35, s * 0.7));
+          const softL = 96;
+          return new Color(`hsl(${h} ${softS}% ${softL}%)`).toString({ format: "hex" });
+        } else {
+          const softS = Math.min(80, Math.max(40, s * 0.9));
+          const softL = 22;
+          return new Color(`hsl(${h} ${softS}% ${softL}%)`).toString({ format: "hex" });
+        }
+      }
+
+      const successHex = success.toString({ format: "hex" });
+      const warningHex = warning.toString({ format: "hex" });
+      const errorHex = error.toString({ format: "hex" });
+
+      const successSoftBg = makeSoftSemantic(success);
+      const warningSoftBg = makeSoftSemantic(warning);
+      const errorSoftBg = makeSoftSemantic(error);
+
+      // Ensure semantic text has proper contrast on soft backgrounds
+      const successSoftText = ensureContrast(
+        mode === "light" ? darken(successHex, 0.25) : successHex,
+        successSoftBg,
+        4.5
+      );
+      const warningSoftText = ensureContrast(
+        mode === "light" ? darken(warningHex, 0.20) : warningHex,
+        warningSoftBg,
+        4.5
+      );
+      const errorSoftText = ensureContrast(
+        mode === "light" ? darken(errorHex, 0.22) : errorHex,
+        errorSoftBg,
+        4.5
+      );
+
+      // secondary interactive (neutral)
+      const secondary = mode === "light" ? neutrals[200] : neutrals[300];
+      const secondaryHover = mode === "light" ? neutrals[300] : neutrals[400];
+      const secondaryActive = mode === "light" ? neutrals[400] : neutrals[500];
+      const secondaryText = text;
+
+      // focus / disabled / overlay
+      const focusRing = primary;
+      const disabledBg = mode === "light" ? neutrals[200] : neutrals[300];
+      const disabledText = mode === "light" ? neutrals[500] : neutrals[600];
+      const disabledBorder = mode === "light" ? neutrals[300] : neutrals[400];
+      const overlay = "rgba(0,0,0,0.45)";
+
+      // inputs
+      const inputBg = mode === "light" ? neutrals[100] : neutrals[200];
+      const inputBorder = mode === "light" ? neutrals[300] : neutrals[400];
+      const inputBorderFocus = primary;
+      const inputText = text;
+      const inputPlaceholder = textSubtle;
+
+      const root = document.documentElement;
+      root.style.setProperty("--bg", bg);
+      root.style.setProperty("--surface", surface);
+      root.style.setProperty("--surface-alt", surfaceAlt);
+      root.style.setProperty("--surface-1", surface1);
+      root.style.setProperty("--surface-2", surface2);
+      root.style.setProperty("--surface-3", surface3);
+
+      root.style.setProperty("--border", border);
+      root.style.setProperty("--border-strong", borderStrong);
+
+      root.style.setProperty("--text", text);
+      root.style.setProperty("--text-strong", textStrong);
+      root.style.setProperty("--text-subtle", textSubtle);
+
+      root.style.setProperty("--primary", primary);
+      root.style.setProperty("--primary-hover", primaryHover);
+      root.style.setProperty("--primary-active", primaryActive);
+      root.style.setProperty("--primary-soft-bg", primarySoftBg);
+      root.style.setProperty("--primary-soft-text", primarySoftText);
+      root.style.setProperty("--btn-primary-text", primaryButtonText);
+
+      root.style.setProperty("--success", successHex);
+      root.style.setProperty("--success-hover", darken(successHex, 0.08));
+      root.style.setProperty("--success-active", darken(successHex, 0.16));
+      root.style.setProperty("--success-soft-bg", successSoftBg);
+      root.style.setProperty("--success-soft-text", successSoftText);
+
+      root.style.setProperty("--warning", warningHex);
+      root.style.setProperty("--warning-hover", darken(warningHex, 0.08));
+      root.style.setProperty("--warning-active", darken(warningHex, 0.16));
+      root.style.setProperty("--warning-soft-bg", warningSoftBg);
+      root.style.setProperty("--warning-soft-text", warningSoftText);
+
+      root.style.setProperty("--error", errorHex);
+      root.style.setProperty("--error-hover", darken(errorHex, 0.08));
+      root.style.setProperty("--error-active", darken(errorHex, 0.16));
+      root.style.setProperty("--error-soft-bg", errorSoftBg);
+      root.style.setProperty("--error-soft-text", errorSoftText);
+
+      root.style.setProperty("--secondary", secondary);
+      root.style.setProperty("--secondary-hover", secondaryHover);
+      root.style.setProperty("--secondary-active", secondaryActive);
+      root.style.setProperty("--secondary-text", secondaryText);
+      root.style.setProperty("--btn-secondary-text", secondaryButtonText);
+      root.style.setProperty("--btn-ghost-text", ghostButtonText);
+
+      root.style.setProperty("--focus-ring", focusRing);
+      root.style.setProperty("--disabled-bg", disabledBg);
+      root.style.setProperty("--disabled-text", disabledText);
+      root.style.setProperty("--disabled-border", disabledBorder);
+      root.style.setProperty("--overlay", overlay);
+
+      root.style.setProperty("--input-bg", inputBg);
+      root.style.setProperty("--input-border", inputBorder);
+      root.style.setProperty("--input-border-focus", inputBorderFocus);
+      root.style.setProperty("--input-text", inputText);
+      root.style.setProperty("--input-placeholder", inputPlaceholder);
+
+      // debug swatches
+      const neutralSwatches = {};
+      [100, 200, 300, 400, 500, 600, 700, 800, 900].forEach(k => {
+        neutralSwatches["neutral" + k] = neutrals[k];
+      });
+
+      const primarySwatches = {
+        primary,
+        primaryHover,
+        primaryActive,
+        primarySoftBg,
+        primarySoftText,
+      };
+
+      const semanticSwatches = {
+        success: successHex,
+        successSoftBg,
+        successSoftText,
+        warning: warningHex,
+        warningSoftBg,
+        warningSoftText,
+        error: errorHex,
+        errorSoftBg,
+        errorSoftText,
+      };
+
+      renderSwatches("swatches-neutral", neutralSwatches);
+      renderSwatches("swatches-primary", primarySwatches);
+      renderSwatches("swatches-semantic", semanticSwatches);
+
+      modeLabel.textContent = mode === "light" ? "Light" : "Dark";
+      chromaLabel.textContent = `Tint ${Math.round(chromaLevel * 100)}% (${temp})`;
+    }
+
+    function update() {
+      const brand = brandInput.value;
+      const mode = modeInput.value;
+      const temp = tempInput.value;
+      const chromaLevel = parseInt(chromaInput.value, 10) / 100;
+      generateTheme(brand, mode, temp, chromaLevel);
+    }
+
+    // Sync color picker and hex input
+    brandInput.addEventListener("input", (e) => {
+      brandHexInput.value = e.target.value.toUpperCase();
+      update();
+    });
+
+    brandHexInput.addEventListener("input", (e) => {
+      const hex = e.target.value;
+      // Validate hex format
+      if (/^#[0-9A-Fa-f]{6}$/.test(hex)) {
+        brandInput.value = hex;
+        update();
+      }
+    });
+
+    modeInput.addEventListener("change", update);
+    tempInput.addEventListener("change", update);
+    chromaInput.addEventListener("input", update);
+
+    update();
+  </script>
+</body>
+
+</html>

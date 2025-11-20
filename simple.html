@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Ecommerce Color Scheme Generator</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #f5f5f5;
+      --text: #111827;
+      --text-subtle: #6b7280;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-active: #1e40af;
+      --primary-soft: #eff6ff;
+      --success: #22c55e;
+      --success-soft: #dcfce7;
+      --warning: #f59e0b;
+      --warning-soft: #fef3c7;
+      --error: #ef4444;
+      --error-soft: #fee2e2;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 2rem;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .controls label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .section-title {
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: 140px auto;
+      gap: 6px 16px;
+      max-width: 640px;
+      margin-bottom: 1rem;
+    }
+
+    .swatch-row {
+      display: contents;
+    }
+
+    .swatch {
+      height: 40px;
+      border-radius: 4px;
+      border: 1px solid rgb(0 0 0 / 0.05);
+    }
+
+    .chip-mode {
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      border: 1px solid rgb(0 0 0 / 0.1);
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+    }
+
+    .text-demo {
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      background: var(--surface);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .text-strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .text-subtle {
+      color: var(--text-subtle);
+      font-size: 0.9rem;
+    }
+
+    .examples-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.2fr);
+      gap: 1.5rem;
+      max-width: 900px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1rem;
+    }
+
+    .card p {
+      margin: 0 0 0.75rem 0;
+      font-size: 0.9rem;
+      color: var(--text-subtle);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.55rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background 120ms ease, color 120ms ease,
+        border-color 120ms ease, transform 80ms ease,
+        box-shadow 80ms ease;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 2px 4px rgb(0 0 0 / 0.35);
+    }
+
+    .btn-primary:active {
+      background: var(--primary-active);
+      transform: translateY(1px);
+      box-shadow: 0 1px 2px rgb(0 0 0 / 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border-color: rgba(255, 255, 255, 0.12);
+      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.04));
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(255, 255, 255, 0.06);
+    }
+
+    .btn-secondary:active {
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: translateY(1px);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--primary);
+    }
+
+    .btn-ghost:hover {
+      background: var(--primary-soft);
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .badge-sale {
+      background: var(--error-soft);
+      color: var(--error);
+    }
+
+    .badge-new {
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .badge-stock {
+      background: var(--success-soft);
+      color: var(--success);
+    }
+
+    .badge-warning {
+      background: var(--warning-soft);
+      color: var(--warning);
+    }
+
+    @media (max-width: 800px) {
+      .examples-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Ecommerce Color Scheme Generator</h1>
+
+  <div class="controls">
+    <label>
+      Brand color
+      <input type="color" id="brand-input" value="#c53030" />
+    </label>
+
+    <label>
+      Mode
+      <select id="mode-input">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </label>
+
+    <span class="chip-mode" id="mode-label"></span>
+  </div>
+
+  <div class="section-title">Primary & interaction variants</div>
+  <div class="swatch-grid" id="swatches-primary"></div>
+
+  <div class="section-title">Neutrals</div>
+  <div class="swatch-grid" id="swatches-neutral"></div>
+
+  <div class="section-title">Semantic</div>
+  <div class="swatch-grid" id="swatches-semantic"></div>
+
+  <div class="section-title">Examples</div>
+  <div class="examples-grid">
+    <div class="card">
+      <h3>Buttons</h3>
+      <p>Primary/secondary/ghost buttons using the generated scheme.</p>
+      <div class="btn-row">
+        <button class="btn btn-primary">Add to cart</button>
+        <button class="btn btn-secondary">Secondary action</button>
+        <button class="btn btn-ghost">Ghost link</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Badges</h3>
+      <p>Common ecommerce states mapped to semantic and primary colors.</p>
+      <div class="badge-row">
+        <span class="badge badge-sale">-30% Sale</span>
+        <span class="badge badge-new">New</span>
+        <span class="badge badge-stock">In stock</span>
+        <span class="badge badge-warning">Only 2 left</span>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import Color from "https://colorjs.io/dist/color.js";
+
+    const brandInput = document.getElementById("brand-input");
+    const modeInput = document.getElementById("mode-input");
+    const modeLabel = document.getElementById("mode-label");
+
+    const neutralLight = {
+      100: "#ffffff",
+      200: "#f5f5f5",
+      300: "#e5e5e5",
+      400: "#d4d4d4",
+      500: "#a3a3a3",
+      600: "#737373",
+      700: "#525252",
+      800: "#404040",
+      900: "#171717",
+    };
+
+    const neutralDark = {
+      100: "#050505",
+      200: "#111111",
+      300: "#181818",
+      400: "#262626",
+      500: "#404040",
+      600: "#525252",
+      700: "#737373",
+      800: "#a3a3a3",
+      900: "#f5f5f5",
+    };
+
+    function mix(a, b, t) {
+      return new Color(a).mix(b, t, { space: "oklch" }).toString({ format: "hex" });
+    }
+
+    function darken(hex, amount) {
+      return new Color(hex).mix("#000000", amount, { space: "oklch" }).toString({ format: "hex" });
+    }
+
+    function renderSwatches(containerId, entries) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+      Object.entries(entries).forEach(([name, value]) => {
+        const row = document.createElement("div");
+        row.className = "swatch-row";
+
+        const swatch = document.createElement("div");
+        swatch.className = "swatch";
+        swatch.style.background = value;
+
+        const label = document.createElement("div");
+        label.textContent = `${name}: ${value}`;
+
+        row.appendChild(swatch);
+        row.appendChild(label);
+        container.appendChild(row);
+      });
+    }
+
+    function generateTheme(brandHex, mode) {
+      const neutrals = mode === "light" ? neutralLight : neutralDark;
+      const bg = neutrals[100];
+      const surface = neutrals[200];
+
+      // text roles
+      const textStrong = neutrals[900];
+      const text = neutrals[900];
+      const textSubtle = mode === "light" ? neutrals[700] : neutrals[800];
+
+      // primary scale
+      const primary = brandHex;
+      const primaryHover = darken(primary, 0.10);
+      const primaryActive = darken(primary, 0.18);
+
+      const primarySoft =
+        mode === "light"
+          ? mix(neutrals[100], primary, 0.14)
+          : mix(neutrals[300], primary, 0.30);
+
+      const primaryMuted =
+        mode === "light"
+          ? mix(neutrals[100], primary, 0.40)
+          : mix(neutrals[400], primary, 0.45);
+
+      const primaryTokens = {
+        primary: primary,
+        primarySoft: primarySoft,
+        primaryMuted: primaryMuted,
+        primaryHover: primaryHover,
+        primaryActive: primaryActive,
+      };
+
+      // semantics
+      const successBase = new Color("hsl(142 60% 45%)");
+      const warningBase = new Color("hsl(38 100% 52%)");
+      const errorBase = new Color("hsl(0 80% 52%)");
+
+      const success = mix(successBase, primary, 0.05);
+      const warning = mix(warningBase, primary, 0.05);
+      const error = mix(errorBase, primary, 0.05);
+
+      function makeSoft(color) {
+        const hsl = new Color(color).to("hsl");
+        const [h, s] = hsl.coords;
+        if (mode === "light") {
+          const softS = Math.min(70, Math.max(35, s * 0.7));
+          const softL = 96;
+          return new Color(`hsl(${h} ${softS}% ${softL}%)`).toString({ format: "hex" });
+        } else {
+          const softS = Math.min(80, Math.max(40, s * 0.9));
+          const softL = 22;
+          return new Color(`hsl(${h} ${softS}% ${softL}%)`).toString({ format: "hex" });
+        }
+      }
+
+      const semantics = {
+        success: success.toString({ format: "hex" }),
+        successSoft: makeSoft(success),
+        warning: warning.toString({ format: "hex" }),
+        warningSoft: makeSoft(warning),
+        error: error.toString({ format: "hex" }),
+        errorSoft: makeSoft(error),
+      };
+
+      // render swatches
+      renderSwatches("swatches-primary", primaryTokens);
+
+      const neutralEntries = {};
+      Object.keys(neutrals).forEach(k => {
+        neutralEntries["neutral" + k] = neutrals[k];
+      });
+      renderSwatches("swatches-neutral", neutralEntries);
+      renderSwatches("swatches-semantic", semantics);
+
+      // apply CSS vars
+      const root = document.documentElement;
+      root.style.setProperty("--bg", bg);
+      root.style.setProperty("--surface", surface);
+      root.style.setProperty("--text", textStrong);
+      root.style.setProperty("--text-subtle", textSubtle);
+
+      root.style.setProperty("--primary", primary);
+      root.style.setProperty("--primary-hover", primaryHover);
+      root.style.setProperty("--primary-active", primaryActive);
+      root.style.setProperty("--primary-soft", primarySoft);
+
+      root.style.setProperty("--success", semantics.success);
+      root.style.setProperty("--success-soft", semantics.successSoft);
+      root.style.setProperty("--warning", semantics.warning);
+      root.style.setProperty("--warning-soft", semantics.warningSoft);
+      root.style.setProperty("--error", semantics.error);
+      root.style.setProperty("--error-soft", semantics.errorSoft);
+
+      modeLabel.textContent = mode === "light" ? "Light mode" : "Dark mode";
+    }
+
+    // initial render
+    generateTheme(brandInput.value, modeInput.value);
+
+    brandInput.addEventListener("input", () => {
+      generateTheme(brandInput.value, modeInput.value);
+    });
+
+    modeInput.addEventListener("change", () => {
+      generateTheme(brandInput.value, modeInput.value);
+    });
+  </script>
+</body>
+
+</html>
