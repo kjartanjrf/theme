@@ -33,7 +33,9 @@
         content: "";
       }
     }
+
   }
+
 
   // Container type accordion
   // inside a nav
@@ -124,7 +126,7 @@
   // ––––––––––––––––––––
   #{$parent-selector} nav details.dropdown {
     display: inline;
-    margin: calc(var(#{$css-var-prefix}nav-element-spacing-vertical) * -1) 0;
+    /*margin: calc(var(#{$css-var-prefix}nav-element-spacing-vertical) * -1) 0;*/
 
     > summary {
       &::after {

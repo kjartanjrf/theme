@@ -412,7 +412,7 @@
         $selector: '&[role="button"]';
 
         @if $enable-classes {
-          $selector: "#{$selector}:not(.outline)";
+          $selector: "#{$selector}:not(.outline, .ghost)";
         }
 
         #{$selector} {

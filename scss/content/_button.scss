@@ -167,6 +167,38 @@
         #{$css-var-prefix}border-color: var(#{$css-var-prefix}contrast-hover);
       }
     }
+    
+
+    // Ghost (primary)
+    #{$parent-selector} :is(button, [type="submit"], [type="button"], [role="button"]).ghost {
+      #{$css-var-prefix}background-color: transparent;
+      #{$css-var-prefix}border-color: transparent;
+      #{$css-var-prefix}color: var(#{$css-var-prefix}primary);
+
+      &:is([aria-current]:not([aria-current="false"]), :hover, :active, :focus) {
+        #{$css-var-prefix}background-color: transparent;
+        #{$css-var-prefix}border-color: transparent;
+        #{$css-var-prefix}color: var(#{$css-var-prefix}primary-hover);
+      }
+    }
+
+    // Ghost (secondary)
+    #{$parent-selector} :is(button, [type="submit"], [type="button"], [role="button"]).ghost.secondary {
+      #{$css-var-prefix}color: var(#{$css-var-prefix}secondary);
+
+      &:is([aria-current]:not([aria-current="false"]), :hover, :active, :focus) {
+        #{$css-var-prefix}color: var(#{$css-var-prefix}secondary-hover);
+      }
+    }
+
+    // Ghost (contrast)
+    #{$parent-selector} :is(button, [type="submit"], [type="button"], [role="button"]).ghost.contrast {
+      #{$css-var-prefix}color: var(#{$css-var-prefix}contrast);
+
+      &:is([aria-current]:not([aria-current="false"]), :hover, :active, :focus) {
+        #{$css-var-prefix}color: var(#{$css-var-prefix}contrast-hover);
+      }
+    }
   }
 
   @else {

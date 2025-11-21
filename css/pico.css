@@ -193,7 +193,7 @@ nav details.dropdown summary:focus-visible {
   --pico-form-element-spacing-horizontal: 2rem;
 }
 
-details summary[role=button]:not(.outline)::after {
+details summary[role=button]:not(.outline, .ghost)::after {
   filter: brightness(0) invert(1);
 }
 
@@ -1076,6 +1076,31 @@ button:focus, button:is([aria-current]:not([aria-current=false])):focus,
 :is(button, [type=submit], [type=button], [role=button]).outline.contrast:is([aria-current]:not([aria-current=false]), :hover, :active, :focus) {
   --pico-color: var(--pico-contrast-hover);
   --pico-border-color: var(--pico-contrast-hover);
+}
+
+:is(button, [type=submit], [type=button], [role=button]).ghost {
+  --pico-background-color: transparent;
+  --pico-border-color: transparent;
+  --pico-color: var(--pico-primary);
+}
+:is(button, [type=submit], [type=button], [role=button]).ghost:is([aria-current]:not([aria-current=false]), :hover, :active, :focus) {
+  --pico-background-color: transparent;
+  --pico-border-color: transparent;
+  --pico-color: var(--pico-primary-hover);
+}
+
+:is(button, [type=submit], [type=button], [role=button]).ghost.secondary {
+  --pico-color: var(--pico-secondary);
+}
+:is(button, [type=submit], [type=button], [role=button]).ghost.secondary:is([aria-current]:not([aria-current=false]), :hover, :active, :focus) {
+  --pico-color: var(--pico-secondary-hover);
+}
+
+:is(button, [type=submit], [type=button], [role=button]).ghost.contrast {
+  --pico-color: var(--pico-contrast);
+}
+:is(button, [type=submit], [type=button], [role=button]).ghost.contrast:is([aria-current]:not([aria-current=false]), :hover, :active, :focus) {
+  --pico-color: var(--pico-contrast-hover);
 }
 
 :where(button, [type=submit], [type=reset], [type=button], [role=button])[disabled],
@@ -2059,7 +2084,7 @@ details.dropdown > summary:not([role])[aria-invalid=true] {
 
 nav details.dropdown {
   display: inline;
-  margin: calc(var(--pico-nav-element-spacing-vertical) * -1) 0;
+  /*margin: calc(var(--pico-nav-element-spacing-vertical) * -1) 0;*/
 }
 nav details.dropdown > summary::after {
   transform: rotate(0deg) translateX(0rem);
