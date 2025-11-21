@@ -167,7 +167,7 @@
         #{$css-var-prefix}border-color: var(#{$css-var-prefix}contrast-hover);
       }
     }
-    
+
 
     // Ghost (primary)
     #{$parent-selector} :is(button, [type="submit"], [type="button"], [role="button"]).ghost {
@@ -242,7 +242,6 @@
     align-items: center;
     vertical-align: middle;
     justify-content: center;
-    padding: var(#{$css-var-prefix}form-element-spacing-vertical);
 
     svg {
       width: var(#{$css-var-prefix}icon-sm);
@@ -250,4 +249,12 @@
       flex-shrink: 0;
     }
   }
+
+  // Icon-only buttons (with aria-label, equal padding on all sides)
+  #{$parent-selector} :is(button, [type="submit"], [type="button"], [role="button"])[aria-label]:has(svg) {
+    padding: calc((1em * var(#{$css-var-prefix}line-height) + var(#{$css-var-prefix}form-element-spacing-vertical) * 2 - var(#{$css-var-prefix}icon-sm)) / 2);
+    aspect-ratio: 1;
+    gap: 0;
+  }
+
 }

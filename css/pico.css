@@ -21,7 +21,7 @@
   --pico-outline-width: 0.125rem;
   --pico-transition: 0.2s ease-in-out;
   --pico-spacing: 1rem;
-  --pico-icon-sm: 1rem;
+  --pico-icon-sm: 1.25rem;
   --pico-icon-md: 1.5rem;
   --pico-icon-lg: 2rem;
   --pico-icon-spacing: 0.5rem;
@@ -1119,7 +1119,6 @@ button:has(svg),
   align-items: center;
   vertical-align: middle;
   justify-content: center;
-  padding: var(--pico-form-element-spacing-vertical);
 }
 button:has(svg) svg,
 [type=submit]:has(svg) svg,
@@ -1129,6 +1128,12 @@ button:has(svg) svg,
   width: var(--pico-icon-sm);
   height: var(--pico-icon-sm);
   flex-shrink: 0;
+}
+
+:is(button, [type=submit], [type=button], [role=button])[aria-label]:has(svg) {
+  padding: calc((1em * var(--pico-line-height) + var(--pico-form-element-spacing-vertical) * 2 - var(--pico-icon-sm)) / 2);
+  aspect-ratio: 1;
+  gap: 0;
 }
 
 /**
